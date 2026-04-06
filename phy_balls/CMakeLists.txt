@@ -7,6 +7,7 @@ find_package(SFML COMPONENTS graphics REQUIRED)
 add_executable(ball
 	main.cpp
 	src/cpp/Ball.cpp
+	src/cpp/Ball_Player.cpp
 	src/cpp/Physics.cpp
 	src/cpp/Windows.cpp
 )
