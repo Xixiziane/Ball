@@ -1,6 +1,6 @@
 #include "../hpp/Windows.hpp"
 
-Windows::Windows(sf::VideoMode mode,const std::string& title,const std::vector<Ball>&balls_)
+Windows::Windows(sf::VideoMode mode,const std::string& title,const std::vector<Ball>&balls_,const Ball_Play&player_):player(player_)
 {
     w=new sf::RenderWindow(mode,title);
     for(auto& b:balls_)
@@ -21,6 +21,7 @@ void Windows::Draw()
     {
         w->draw(*(b.get_ball()));
     }
+    w->draw(*(player.get_ball().get_ball()));
 }
 
 void Windows::display()
@@ -40,6 +41,8 @@ sf::RenderWindow* Windows::get_windows()
 
 void Windows::run(const float dt)
 {
+    sf::Vector2u size=w->getSize();
+    player.controler(dt);
     for(auto&b:balls)
     {
         b.get_ball()->move(dt*b.get_speed());
@@ -51,11 +54,11 @@ void Windows::run(const float dt)
         {
             Physics::collision_handing(balls[i],balls[j]);
         }
+        Physics::collision_handing(balls[i],player.get_ball());
     }
-
+    Physics::check_boundary(player.get_ball(),size.x,size.y);
     for(auto&b:balls)
     {
-        sf::Vector2u size=w->getSize();
         Physics::check_boundary(b,size.x,size.y);
     }
 }
