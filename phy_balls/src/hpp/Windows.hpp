@@ -14,6 +14,7 @@ class Windows
     Ball_Play player;
     std::vector<sf::Vector2f> prev_ball_positions;
     sf::Vector2f prev_player_position;
+    float accumulator;
 
     void capture_previous_positions();
     void fixed_update(const float dt);
