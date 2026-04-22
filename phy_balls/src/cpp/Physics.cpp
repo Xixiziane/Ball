@@ -52,9 +52,10 @@ void Physics::collision_handing_helper(Ball&b1,Ball&b2)
     if(over>=0.0f&&distance>=1e-6)
     {
         sf::Vector2f n(delta.x/distance,delta.y/distance);
-        auto push=0.5f*over;
-        ball1->move(n*push);
-        ball2->move(-n*push);
+        auto push1=over*(m2)/(m1+m2);
+        auto push2=over*(m1)/(m1+m2);
+        ball1->move(n*push1);
+        ball2->move(-n*push2);
 
         auto v1n=n*(dot(v1,n));
         auto v1t=v1-v1n;
